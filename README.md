@@ -16,48 +16,59 @@ The study investigates the impact of:
 
 # Dataset Description
 
-The dataset consists of time-series process data collected from multiple BOP (Belt Operating Plant) units and HRD units.
+The analysis was performed using a process dataset containing operational data from three BOP units and four HRD units. The dataset consists of 15 columns representing flow and solids measurements recorded over time.
 
-### Primary Variables
+## Dataset Structure
 
-| Variable            | Description                                                 |
-| ------------------- | ----------------------------------------------------------- |
-| BOP Flow            | Feed flow entering the HRD system                           |
-| HRD Underflow       | Underflow flow exiting the HRD                              |
-| HRD Solids          | Target variable representing underflow solids concentration |
-| Solid Concentration | Percentage solids present in the stream                     |
-| Timestamp           | Process observation time                                    |
+### Time Information
 
-The target variable for this analysis is:
+* Date / Timestamp
 
-**HRD Underflow Solids (%)**
+### BOP Variables
 
----
+For each BOP unit, both flow and solids concentration measurements are available:
 
-# BOP–HRD Mapping Logic
+* BOP1 Flow
+* BOP1 Solids
+* BOP2 Flow
+* BOP2 Solids
+* BOP3 Flow
+* BOP3 Solids
 
-The relationship between BOP units and HRDs is dynamic and depends on equipment availability and operating conditions.
+### HRD Variables
 
-## Mapping Rules
+For each HRD unit, both underflow flow and underflow solids measurements are available:
 
-### BOP1
+* HRD101 Underflow Flow
+* HRD101 Underflow Solids
+* HRD102 Underflow Flow
+* HRD102 Underflow Solids
+* HRD201 Underflow Flow
+* HRD201 Underflow Solids
+* HRD301 Underflow Flow
+* HRD301 Underflow Solids
 
-* BOP1 → HRD101
-* BOP1 → HRD102 only when HRD101 is offline
+## Total Columns
 
-### BOP2
+| Category             | Number of Columns |
+| -------------------- | ----------------- |
+| Date/Time            | 1                 |
+| BOP Flows            | 3                 |
+| BOP Solids           | 3                 |
+| HRD Underflow Flows  | 4                 |
+| HRD Underflow Solids | 4                 |
+| **Total**            | **15**            |
 
-* BOP2 → HRD102 when HRD201 is offline or connected to BOP3
-* BOP2 → HRD201 when HRD102 is offline or connected to BOP1
+## Target Variable
 
-### BOP3
+The primary target variable in this study is the HRD Underflow Solids (%). Since each HRD operates independently under different process conditions, separate analyses were performed for:
 
-* BOP3 → HRD301
-* BOP3 → HRD201 only when HRD301 is offline
+* HRD101 Solids
+* HRD102 Solids
+* HRD201 Solids
+* HRD301 Solids
 
-This mapping was applied throughout the analysis to ensure that each HRD is associated with the correct upstream BOP source.
-
----
+Each HRD solids measurement was treated as the target variable within its corresponding HRD-specific dataset.
 
 # Data Preprocessing
 
